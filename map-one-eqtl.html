@@ -344,7 +344,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Mapping A Single Gene Expression Trait</h1>
-        <p>Last updated on 2025-08-05 |
+        <p>Last updated on 2025-08-12 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/map-one-eqtl.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -874,8 +874,8 @@ again.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>To recap, before we perform any analysis using the transcript
 expression data, we need to:</p>
@@ -977,8 +977,8 @@ position, separated by an underscore (_).</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>The marker positions in the map must be in Mb.</p>
 </div>
@@ -1017,8 +1017,10 @@ probabilities.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="challenge-1-what-is-a-genotype-probability-why-do-we-need-genotype-probabilities-in-qtl-mapping" class="callout-inner">
-<h3 class="callout-title">Challenge 1: What is a genotype probability? Why do we need genotype probabilities in QTL mapping?</h3>
+<h3 class="callout-title">Challenge 1: What is a genotype probability?
+Why do we need genotype probabilities in QTL mapping?</h3>
 <div class="callout-content">
 
 </div>
@@ -1091,8 +1093,10 @@ function.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="challenge-2-why-do-we-calculate-kinship-what-purpose-does-it-serve" class="callout-inner">
-<h3 class="callout-title">Challenge 2: Why do we calculate kinship? What purpose does it serve?</h3>
+<h3 class="callout-title">Challenge 2: Why do we calculate kinship? What
+purpose does it serve?</h3>
 <div class="callout-content">
 
 </div>
@@ -1147,8 +1151,10 @@ effects.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="challenge-3-why-do-we-use-covariates-in-the-model-what-purpose-do-they-serve" class="callout-inner">
-<h3 class="callout-title">Challenge 3: Why do we use covariates in the model? What purpose do they serve?</h3>
+<h3 class="callout-title">Challenge 3: Why do we use covariates in the
+model? What purpose do they serve?</h3>
 <div class="callout-content">
 
 </div>
@@ -1187,8 +1193,8 @@ create the covariates matrix that <code>qtl2</code> will use.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>The sample IDs must be in the rownames of <code>pheno</code>,
 <code>addcovar</code>, <code>genoprobs</code> and <code>K</code>.
@@ -1281,8 +1287,10 @@ for both the untransformed and log-transformed insulin values.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="challenge-4-which-phenotype-has-the-higher-lod-score-on-chromosomes-11-and-17" class="callout-inner">
-<h3 class="callout-title">Challenge 4: Which phenotype has the higher LOD score on chromosomes 11 and 17?</h3>
+<h3 class="callout-title">Challenge 4: Which phenotype has the higher
+LOD score on chromosomes 11 and 17?</h3>
 <div class="callout-content">
 
 </div>
@@ -1344,8 +1352,8 @@ Hnf1b expression values to reduce our typing.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Remember to use the <code>drop = FALSE</code> argument so that R will
 not convert the expression data from a matrix to a vector.</p>
@@ -1365,6 +1373,7 @@ not convert the expression data from a matrix to a vector.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="challenge-5-plot-hnf1b-genome-scan" class="callout-inner">
 <h3 class="callout-title">Challenge 5: Plot Hnf1b Genome Scan</h3>
 <div class="callout-content">
@@ -1401,8 +1410,8 @@ significance, we will use permutations.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Don’t run the permutation block below. It will take hours to
 complete. We have pre-computed the permutations and have code for you to
@@ -1452,8 +1461,8 @@ have a different distribution than insulin AUC.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
+<span class="callout-header">Callout</span>
 <div class="callout-inner">
-<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Don’t run the permutation block below. It will take hours to
 complete. We have pre-computed the permutations and have code for you to
@@ -1500,8 +1509,10 @@ load them in below.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="challenge-6-what-does-permutation-do-to-the-data-how-do-permutations-aid-in-finding-significant-lod-scores" class="callout-inner">
-<h3 class="callout-title">Challenge 6: What does permutation do to the data? How do permutations aid in finding significant LOD scores?</h3>
+<h3 class="callout-title">Challenge 6: What does permutation do to the
+data? How do permutations aid in finding significant LOD scores?</h3>
 <div class="callout-content">
 
 </div>
@@ -1562,6 +1573,7 @@ threshold.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="challenge-7-significant-peaks-for-hnf1b" class="callout-inner">
 <h3 class="callout-title">Challenge 7: Significant Peaks for Hnf1b</h3>
 <div class="callout-content">
@@ -1614,6 +1626,7 @@ interval.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="challenge-8-genomic-position-of-hnf1b" class="callout-inner">
 <h3 class="callout-title">Challenge 8: Genomic Position of Hnf1b</h3>
 <div class="callout-content">
@@ -1730,8 +1743,10 @@ this class, so we will read the results in below.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
+<span class="callout-header">Challenge</span>
 <div id="challenge-9-compare-founder-allele-effects" class="callout-inner">
-<h3 class="callout-title">Challenge 9: Compare Founder Allele Effects</h3>
+<h3 class="callout-title">Challenge 9: Compare Founder Allele
+Effects</h3>
 <div class="callout-content">
 <p>Compare at the pattern of founder allele effects at the QTL position
 for insulin tAUC and Hnf1b.</p>
@@ -1755,8 +1770,8 @@ NOD/ShiLtJ alleles contribute to higher insulin AUC.</p>
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
+<span class="callout-header">Key Points</span>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>Gene expression values must be normalized to account for the library
 size of each sample.</li>
@@ -1806,7 +1821,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.12" class="external-link">sandpaper (0.16.12)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.6" class="external-link">varnish (1.0.6)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.17.1" class="external-link">sandpaper (0.17.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.9" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.7" class="external-link">varnish (1.0.7)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -1828,8 +1843,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/map-one-eqtl.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/map-one-eqtl.html",
   "dateCreated": "2024-11-07",
-  "dateModified": "2025-08-05",
-  "datePublished": "2025-08-05"
+  "dateModified": "2025-08-12",
+  "datePublished": "2025-08-12"
 }
 
   </script><script>
