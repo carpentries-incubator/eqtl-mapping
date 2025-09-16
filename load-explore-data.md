@@ -453,6 +453,12 @@ for the first gene are plotted over a diagonal line tracing a normal
 distribution for those counts. Notice that most of the count data values lie off
 of this line, indicating that these gene counts are not normally distributed. 
 
+
+``` output
+Ignoring unknown labels:
+• xlab : "Normal percentiles"
+```
+
 <img src="fig/load-explore-data-rendered-view_manual_qqplot_raw-1.png" style="display: block; margin: auto;" />
 
 Q-Q plots for the first six genes show that count data for these genes are not
@@ -473,6 +479,11 @@ raw |>
     labs(title = 'Count distribution for six genes',
          xlab = 'Normal percentiles', y = 'Count percentiles') +
     theme(text = element_text(size = 20))
+```
+
+``` output
+Ignoring unknown labels:
+• xlab : "Normal percentiles"
 ```
 
 <img src="fig/load-explore-data-rendered-view_qqplots_raw-1.png" style="display: block; margin: auto;" />
