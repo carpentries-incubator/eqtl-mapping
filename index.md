@@ -14,4 +14,5 @@ thousands of gene expression traits (transcripts) in eQTL analysis, such that
 gene expression can be mapped in much the same way as a physiological phenotype 
 like blood pressure or heart rate. Joining gene expression and physiological 
 phenotypes with genetic variation can identify genes with variants affecting 
-disease phenotypes.
+disease phenotypes. Development of this lesson was funded by NIH grant R01GM070683 awarded 
+to Dr. Gary Churchill at The Jackson Laboratory.
