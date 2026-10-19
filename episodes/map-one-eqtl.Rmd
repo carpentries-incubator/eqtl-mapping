@@ -33,7 +33,7 @@ addcovar   <- model.matrix(~sex + DOwave, data = covar)[,-1]
 annot      <- readRDS(file = 'data/attie_do_expr_annot.rds')
 raw        <- readRDS(file = 'data/attie_do_expr_raw.rds')
 map        <- readRDS(file = 'data/attie_do_map.rds')
-probs      <- readRDS(file = url('https://thejacksonlaboratory.box.com/shared/static/4hy4hbjyrxjbrzh570i4g02r62bx3lgk.rds'))
+probs      <- readRDS(file = url('https://thejacksonlaboratory.box.com/s/4hy4hbjyrxjbrzh570i4g02r62bx3lgk'))
 K          <- readRDS(file = 'data/attie_do_kinship.rds')
 ins_tauc   <- pheno[, 'Ins_tAUC', drop = FALSE]
 ins_tauc$Ins_tAUC_log <- log(ins_tauc$Ins_tAUC)
