@@ -480,7 +480,7 @@ produced the genoprobs using
 <!-- We don't evaluate this block when building the website because the file is 
 too large (1.7 GB). We load the probs from Box above . -->
 
-```{r load_genoprobs, eval=FALSE, message=FALSE}
+```{r load_genoprobs, message=FALSE}
 probs <- readRDS("data/attie_DO500_genoprobs_v5.rds")
 ```
 
