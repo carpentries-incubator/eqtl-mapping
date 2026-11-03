@@ -965,11 +965,11 @@ ins_blup <- readRDS(file = 'data/ins_tauc_blup_chr11.rds')
 Next, we will plot the founder allele effects.
 
 ```{r plot_ins_blup, fig.width=8, fig.height=6}
-plot_coefCC(x      = ins_blup, 
-            map    = map, 
-            legend = "bottomleft",
+plot_coefCC(x            = ins_blup, 
+            map          = map, 
+            legend       = "bottomleft",
             scan1_output = ins_lod[, 2, drop = FALSE],
-            main   = "insulin AUC")
+            main         = "insulin AUC")
 
 ```
 
@@ -1002,11 +1002,11 @@ hnf1b_blup <- readRDS(file = 'data/hnf1b_blup_chr11.rds')
 Next, we will plot the founder allele effects.
 
 ```{r plot_hnf1b_blup, fig.width=8, fig.height=6}
-plot_coefCC(x      = hnf1b_blup, 
-            map    = map, 
-            legend = "bottomleft",
+plot_coefCC(x            = hnf1b_blup, 
+            map          = map, 
+            legend       = "bottomleft",
             scan1_output = hnf1b_lod,
-            main   = "Hnf1b")
+            main         = "Hnf1b")
 ```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
