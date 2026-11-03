@@ -1,4 +1,3 @@
-
 ---
 title: "Genetic Drivers of Pancreatic Islet Function"
 teaching: 15

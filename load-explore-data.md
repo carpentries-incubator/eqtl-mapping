@@ -25,6 +25,11 @@ library(qtl2)
 library(DESeq2)
 ```
 
+``` error
+Error in `library()`:
+! there is no package called 'DESeq2'
+```
+
 ## Physiological Phenotypes
 
 You should have downloaded data files already when following the 
@@ -126,7 +131,7 @@ hist(ins_tauc[,1],
      main   = "Insulin Area Under the Curve")
 ```
 
-<img src="fig/load-explore-data-rendered-hist_untransformed-1.png" style="display: block; margin: auto;" />
+<img src="fig/load-explore-data-rendered-hist_untransformed-1.png" alt="" style="display: block; margin: auto;" />
 
 This is clearly **not** normally distributed. In fact, this type of distribution
 is often log normal. 
@@ -149,7 +154,7 @@ hist(ins_tauc$Ins_tAUC_log,
      main   = "insulin AUC (log-transformed)")
 ```
 
-<img src="fig/load-explore-data-rendered-hist_log_transform-1.png" style="display: block; margin: auto;" />
+<img src="fig/load-explore-data-rendered-hist_log_transform-1.png" alt="" style="display: block; margin: auto;" />
 
 This looks much better! The data has a somewhat Gaussian shape. Technically, the
 assumptions of a linear model require that the **residuals** be normally
@@ -180,7 +185,7 @@ ggplot(pheno, aes(sex, Ins_tAUC)) +
   theme(text = element_text(size = 20))
 ```
 
-<img src="fig/load-explore-data-rendered-Ins_tAUC_boxplot-1.png" style="display: block; margin: auto;" />
+<img src="fig/load-explore-data-rendered-Ins_tAUC_boxplot-1.png" alt="" style="display: block; margin: auto;" />
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -259,7 +264,7 @@ pheno |>
     theme(text = element_text(size = 20))
 ```
 
-<img src="fig/load-explore-data-rendered-qqplot-1.png" style="display: block; margin: auto;" />
+<img src="fig/load-explore-data-rendered-qqplot-1.png" alt="" style="display: block; margin: auto;" />
 
 In these plots, the *quantiles* of the normal distribution are plotted on the 
 X-axis and the data are plotted on the Y-axis. A quantile evenly divides data
@@ -290,7 +295,7 @@ pheno |>
     theme(text = element_text(size = 20))
 ```
 
-<img src="fig/load-explore-data-rendered-qqplot_log-1.png" style="display: block; margin: auto;" />
+<img src="fig/load-explore-data-rendered-qqplot_log-1.png" alt="" style="display: block; margin: auto;" />
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -343,7 +348,7 @@ ins_tauc |>
     theme(text = element_text(size = 20))
 ```
 
-<img src="fig/load-explore-data-rendered-pheno_std-1.png" style="display: block; margin: auto;" />
+<img src="fig/load-explore-data-rendered-pheno_std-1.png" alt="" style="display: block; margin: auto;" />
 
 There are no data points outside of the four standard deviation limits.
 
@@ -459,7 +464,7 @@ Ignoring unknown labels:
 • xlab : "Normal percentiles"
 ```
 
-<img src="fig/load-explore-data-rendered-view_manual_qqplot_raw-1.png" style="display: block; margin: auto;" />
+<img src="fig/load-explore-data-rendered-view_manual_qqplot_raw-1.png" alt="" style="display: block; margin: auto;" />
 
 Q-Q plots for the first six genes show that count data for these genes are not
 normally distributed. They are also not on the same scale. The y-axis values for
@@ -486,7 +491,7 @@ Ignoring unknown labels:
 • xlab : "Normal percentiles"
 ```
 
-<img src="fig/load-explore-data-rendered-view_qqplots_raw-1.png" style="display: block; margin: auto;" />
+<img src="fig/load-explore-data-rendered-view_qqplots_raw-1.png" alt="" style="display: block; margin: auto;" />
 
 Since each gene has a different distribution, we will need to normalize the gene
 expression data. We will do this in a future lesson.

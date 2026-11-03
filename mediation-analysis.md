@@ -32,6 +32,14 @@ annot      <- readRDS(file = 'data/attie_do_expr_annot.rds')
 expr_rz    <- readRDS(file = 'data/attie_do_expr_rz.rds')
 map        <- readRDS(file = 'data/attie_do_map.rds')
 probs      <- readRDS(file = url('https://thejacksonlaboratory.box.com/shared/static/4hy4hbjyrxjbrzh570i4g02r62bx3lgk.rds'))
+```
+
+``` error
+Error in `readRDS()`:
+! unknown input format
+```
+
+``` r
 K          <- readRDS(file = 'data/attie_do_kinship.rds')
 ins_tauc   <- pheno[, 'Ins_tAUC', drop = FALSE]
 ins_tauc$Ins_tAUC_log <- log(ins_tauc$Ins_tAUC)
@@ -242,44 +250,9 @@ med_2 <- mediation(qtl_chr  = "2",
                    annot    = annot)
 ```
 
-``` output
-[1] "50 of 1892 : 3.837 seconds elapsed."
-[1] "100 of 1892 : 7.649 seconds elapsed."
-[1] "150 of 1892 : 11.469 seconds elapsed."
-[1] "200 of 1892 : 15.429 seconds elapsed."
-[1] "250 of 1892 : 19.272 seconds elapsed."
-[1] "300 of 1892 : 23.182 seconds elapsed."
-[1] "350 of 1892 : 26.989 seconds elapsed."
-[1] "400 of 1892 : 30.761 seconds elapsed."
-[1] "450 of 1892 : 34.542 seconds elapsed."
-[1] "500 of 1892 : 38.325 seconds elapsed."
-[1] "550 of 1892 : 42.105 seconds elapsed."
-[1] "600 of 1892 : 45.891 seconds elapsed."
-[1] "650 of 1892 : 49.655 seconds elapsed."
-[1] "700 of 1892 : 53.407 seconds elapsed."
-[1] "750 of 1892 : 57.18 seconds elapsed."
-[1] "800 of 1892 : 60.94 seconds elapsed."
-[1] "850 of 1892 : 64.703 seconds elapsed."
-[1] "900 of 1892 : 68.463 seconds elapsed."
-[1] "950 of 1892 : 72.227 seconds elapsed."
-[1] "1000 of 1892 : 76.004 seconds elapsed."
-[1] "1050 of 1892 : 79.778 seconds elapsed."
-[1] "1100 of 1892 : 83.546 seconds elapsed."
-[1] "1150 of 1892 : 87.33 seconds elapsed."
-[1] "1200 of 1892 : 91.1 seconds elapsed."
-[1] "1250 of 1892 : 94.863 seconds elapsed."
-[1] "1300 of 1892 : 98.871 seconds elapsed."
-[1] "1350 of 1892 : 102.776 seconds elapsed."
-[1] "1400 of 1892 : 106.683 seconds elapsed."
-[1] "1450 of 1892 : 110.589 seconds elapsed."
-[1] "1500 of 1892 : 114.448 seconds elapsed."
-[1] "1550 of 1892 : 118.217 seconds elapsed."
-[1] "1600 of 1892 : 121.983 seconds elapsed."
-[1] "1650 of 1892 : 125.745 seconds elapsed."
-[1] "1700 of 1892 : 129.513 seconds elapsed."
-[1] "1750 of 1892 : 133.297 seconds elapsed."
-[1] "1800 of 1892 : 137.064 seconds elapsed."
-[1] "1850 of 1892 : 140.825 seconds elapsed."
+``` error
+Error in `mediation()`:
+! object 'probs' not found
 ```
 
 Now that we have the change in LOD scores associated with using each gene as a
@@ -288,7 +261,14 @@ covariate, we can plot the LOD change along chromosome 11.
 
 ``` r
 end  <- ceiling(max(med_2$middle / 10))
+```
 
+``` error
+Error:
+! object 'med_2' not found
+```
+
+``` r
 med_2 |>
   ggplot(aes(middle, lod_drop)) +
     geom_point() +
@@ -299,7 +279,10 @@ med_2 |>
     theme(text = element_text(size = 20))
 ```
 
-<img src="fig/mediation-analysis-rendered-plot_med-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'med_2' not found
+```
 
 In the plot above, the position of each gene along chromosome 2 is shown on the
 X-axis and the LOD drop is shown on the Y-axes. Most genes don't change the LOD
@@ -313,10 +296,9 @@ med_2 |>
   filter(lod_drop < -20)
 ```
 
-``` output
-             gene_id base_lod  med_lod symbol    middle  lod_drop
-1 ENSMUSG00000017950 97.61195 60.44990  Hnf4a 163.53986 -37.16206
-2 ENSMUSG00000035000 97.61195 75.31902   Dpp4  62.37115 -22.29293
+``` error
+Error:
+! object 'med_2' not found
 ```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
@@ -355,10 +337,21 @@ hnf4a_lod <- scan1(genoprobs = probs,
                   pheno     = expr_rz[,hnf4a, drop = FALSE],
                   kinship   = K,
                   addcovar  = addcovar)
+```
+
+``` error
+Error:
+! object 'probs' not found
+```
+
+``` r
 plot(hnf4a_lod, map, main = "Hnf4a Genome Scan")
 ```
 
-<img src="fig/mediation-analysis-rendered-map_hnf4a-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'hnf4a_lod' not found
+```
 
 In the plot above, we can see that *Hnf4a* has a QTL peak on chromosome 2.
 
@@ -377,9 +370,9 @@ with the location of the chromosome 2 eQTL hotspot?
 find_peaks(hnf4a_lod, map = map, threshold = 8)
 ```
 
-``` output
-  lodindex          lodcolumn chr      pos      lod
-1        1 ENSMUSG00000017950   2 164.0224 49.25123
+``` error
+Error:
+! object 'hnf4a_lod' not found
 ```
 
 *Hnf4a* has a QTL peak on chromosome 2 at 164 Mb. 
@@ -429,7 +422,7 @@ hot     <- hotspots[[hot_chr]]
 plot(table(hot$qtl_pos), las = 2)
 ```
 
-<img src="fig/mediation-analysis-rendered-challenge6a-1.png" style="display: block; margin: auto;" />
+<img src="fig/mediation-analysis-rendered-challenge6a-1.png" alt="" style="display: block; margin: auto;" />
 
 Next, we subset the genes to select ones which have eQTL at the same location.
 Some of the eQTL hotspots have large numbers of of genes at more than one 
@@ -494,10 +487,18 @@ pc1_lod <- scan1(genoprobs = probs,
                  pheno     = pc1_hot,
                  kinship   = K,
                  addcovar  = addcovar)
+```
+
+``` error
+Error:
+! object 'probs' not found
+```
+
+``` r
 plot_scan1(pc1_lod, map, main = paste("Chr", hot_chr))
 ```
 
-<img src="fig/mediation-analysis-rendered-challenge6d-1.png" style="display: block; margin: auto;" />
+<img src="fig/mediation-analysis-rendered-challenge6d-1.png" alt="" style="display: block; margin: auto;" />
 
 At this point, we have everything that we need to perform mediation analysis.
 
@@ -517,52 +518,9 @@ med_hot <- mediation(qtl_chr  = hot_chr,
                      annot    = annot)
 ```
 
-``` warning
-Warning in data.frame(gene_id = colnames(expr_chr), base_lod = qtl_lod, : row
-names were found from a short variable and have been discarded
-```
-
-``` output
-Joining with `by = join_by(gene_id)`
-```
-
-``` output
-[1] "50 of 1810 : 3.69999999999999 seconds elapsed."
-[1] "100 of 1810 : 7.50299999999999 seconds elapsed."
-[1] "150 of 1810 : 11.276 seconds elapsed."
-[1] "200 of 1810 : 15.054 seconds elapsed."
-[1] "250 of 1810 : 18.946 seconds elapsed."
-[1] "300 of 1810 : 22.722 seconds elapsed."
-[1] "350 of 1810 : 26.494 seconds elapsed."
-[1] "400 of 1810 : 30.283 seconds elapsed."
-[1] "450 of 1810 : 34.132 seconds elapsed."
-[1] "500 of 1810 : 37.907 seconds elapsed."
-[1] "550 of 1810 : 41.677 seconds elapsed."
-[1] "600 of 1810 : 45.576 seconds elapsed."
-[1] "650 of 1810 : 49.351 seconds elapsed."
-[1] "700 of 1810 : 53.147 seconds elapsed."
-[1] "750 of 1810 : 56.918 seconds elapsed."
-[1] "800 of 1810 : 60.829 seconds elapsed."
-[1] "850 of 1810 : 64.606 seconds elapsed."
-[1] "900 of 1810 : 68.382 seconds elapsed."
-[1] "950 of 1810 : 72.166 seconds elapsed."
-[1] "1000 of 1810 : 76.09 seconds elapsed."
-[1] "1050 of 1810 : 79.876 seconds elapsed."
-[1] "1100 of 1810 : 83.654 seconds elapsed."
-[1] "1150 of 1810 : 87.436 seconds elapsed."
-[1] "1200 of 1810 : 91.343 seconds elapsed."
-[1] "1250 of 1810 : 95.116 seconds elapsed."
-[1] "1300 of 1810 : 98.881 seconds elapsed."
-[1] "1350 of 1810 : 102.65 seconds elapsed."
-[1] "1400 of 1810 : 106.563 seconds elapsed."
-[1] "1450 of 1810 : 110.328 seconds elapsed."
-[1] "1500 of 1810 : 114.096 seconds elapsed."
-[1] "1550 of 1810 : 117.872 seconds elapsed."
-[1] "1600 of 1810 : 121.78 seconds elapsed."
-[1] "1650 of 1810 : 125.549 seconds elapsed."
-[1] "1700 of 1810 : 129.32 seconds elapsed."
-[1] "1750 of 1810 : 133.104 seconds elapsed."
-[1] "1800 of 1810 : 137.037 seconds elapsed."
+``` error
+Error in `mediation()`:
+! object 'probs' not found
 ```
 
 Now that we have completed the mediation analysis, we plot the results.
@@ -570,7 +528,14 @@ Now that we have completed the mediation analysis, we plot the results.
 
 ``` r
 end  <- ceiling(max(med_hot$middle / 10))
+```
 
+``` error
+Error:
+! object 'med_hot' not found
+```
+
+``` r
 med_hot |>
   ggplot(aes(middle, lod_drop)) +
     geom_point() +
@@ -581,12 +546,10 @@ med_hot |>
     theme(size = element_text(size = 20))
 ```
 
-``` warning
-Warning in plot_theme(plot): The `size` theme element is not defined in the
-element hierarchy.
+``` error
+Error:
+! object 'med_hot' not found
 ```
-
-<img src="fig/mediation-analysis-rendered-challeng6f-1.png" style="display: block; margin: auto;" />
 
 Let's list the genes with LOD drops less than -10.
 
@@ -595,11 +558,9 @@ Let's list the genes with LOD drops less than -10.
 filter(med_hot, lod_drop < -10)
 ```
 
-``` output
-             gene_id base_lod  med_lod  symbol   middle  lod_drop
-1 ENSMUSG00000020846 18.98734 6.593237 Fam101b 76.02349 -12.39410
-2 ENSMUSG00000069835 18.98734 5.051037    Sat2 69.62295 -13.93630
-3 ENSMUSG00000072640 18.98734 6.986865   Lyrm9 78.83673 -12.00047
+``` error
+Error:
+! object 'med_hot' not found
 ```
 
 here are three genes with large LOD drops. In figure S7 of 
@@ -614,11 +575,9 @@ the genes with LOD increases over 12.
 filter(med_hot, lod_drop > 12)
 ```
 
-``` output
-             gene_id base_lod  med_lod  symbol   middle lod_drop
-1 ENSMUSG00000020829 18.98734 36.08675 Slc46a1 78.46888 17.09941
-2 ENSMUSG00000040746 18.98734 33.96385  Rnf167 70.64933 14.97651
-3 ENSMUSG00000045287 18.98734 31.58345 Rtn4rl1 75.23078 12.59611
+``` error
+Error:
+! object 'med_hot' not found
 ```
 
 There are three genes with large LOD increase. If a LOD drop means that the
@@ -630,17 +589,43 @@ Let's start by looking at the allele effects of the hotspot PC1 at the QTL.
 
 ``` r
 pr      <- pull_genoprobpos(genoprobs = probs, map = map, chr = hot_chr, pos = qtl_pos)
+```
 
+``` error
+Error:
+! object 'probs' not found
+```
+
+``` r
 pc1_eff <- fit1(genoprobs = pr,
                 pheno     = pc1_hot,
                 kinship   = K[[hot_chr]],
                 addcovar  = addcovar)
+```
+
+``` error
+Error:
+! object 'pr' not found
+```
+
+``` r
 plot(1:8, pc1_eff$coef[1:8], xaxt = "n", main = "PC1", xlab = "Founder",
      ylab = "Allele Effects")
+```
+
+``` error
+Error:
+! object 'pc1_eff' not found
+```
+
+``` r
 axis(side = 1, at = 1:8, labels = names(pc1_eff$coef[1:8]))
 ```
 
-<img src="fig/mediation-analysis-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'pc1_eff' not found
+```
 
 From the plot above, we can see that CAST (F) and PWK (G) have lower effects
 than the other founders. Remember that the sign of the PC is arbitrary, so the
@@ -657,12 +642,31 @@ gene_lod <- fit1(genoprobs  = pr,
                   pheno     = expr_rz[,gene_id, drop = FALSE],
                   kinship   = K[[hot_chr]], 
                   addcovar  = addcovar)
+```
+
+``` error
+Error:
+! object 'pr' not found
+```
+
+``` r
 plot(1:8, gene_lod$coef[1:8],  xaxt = "n", main = "Rnf167", xlab = "Founder",
      ylab = "Allele Effects")
+```
+
+``` error
+Error:
+! object 'gene_lod' not found
+```
+
+``` r
 axis(side = 1, at = 1:8, labels = names(pc1_eff$coef[1:8]))
 ```
 
-<img src="fig/mediation-analysis-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'pc1_eff' not found
+```
 
 *Rnf167* has allele effects which seem quite correlated with PC1. Both CAST (F) and
 PWK (G) have different allele effects from the other strains.
@@ -673,16 +677,43 @@ Next, let's look at *Sat2*, which is the gene with the largest LOD **drop**.
 ``` r
 gene_id  <- annot[annot$symbol == "Sat2",]$gene_id
 pr       <- pull_genoprobpos(genoprobs = probs, map = map, chr = hot_chr, pos = qtl_pos)
+```
+
+``` error
+Error:
+! object 'probs' not found
+```
+
+``` r
 gene_lod <- fit1(genoprobs  = pr,
                   pheno     = expr_rz[,gene_id, drop = FALSE],
                   kinship   = K[[hot_chr]], 
                   addcovar  = addcovar)
+```
+
+``` error
+Error:
+! object 'pr' not found
+```
+
+``` r
 plot(gene_lod$coef[1:8],xaxt = "n", main = "Sat2", xlab = "Founder",
      ylab = "Allele Effects")
+```
+
+``` error
+Error:
+! object 'gene_lod' not found
+```
+
+``` r
 axis(side = 1, at = 1:8, labels = names(pc1_eff$coef[1:8]))
 ```
 
-<img src="fig/mediation-analysis-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'pc1_eff' not found
+```
 
 The allele effects for *Sat2* appear to be less correlated, with PWK (G) having
 lower effects than the other strains.
@@ -724,7 +755,10 @@ Warning in cor(pc1_hot, expr_11): the standard deviation is zero
 plot(med_hot$lod_drop, cor_11, xlab = "LOD Drop", ylab = "Correlation")
 ```
 
-<img src="fig/mediation-analysis-rendered-unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'med_hot' not found
+```
 
 There seems to be a relationship between the absolute LOD drop and the 
 correlation between the gene and PC1. 

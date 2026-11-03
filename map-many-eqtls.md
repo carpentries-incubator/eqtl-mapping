@@ -18,6 +18,10 @@ exercises: 20
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
+``` error
+Error in `readRDS()`:
+! unknown input format
+```
 
 ### Mapping All Genes
 
@@ -369,7 +373,7 @@ results |>
     theme(text = element_text(size = 20))
 ```
 
-<img src="fig/map-many-eqtls-rendered-lod_cum_dist-1.png" style="display: block; margin: auto;" />
+<img src="fig/map-many-eqtls-rendered-lod_cum_dist-1.png" alt="" style="display: block; margin: auto;" />
 
 ``` r
 rm(lod_brks, results)
@@ -415,7 +419,7 @@ result |>
     theme(text = element_text(size = 20))
 ```
 
-<img src="fig/map-many-eqtls-rendered-eqtl_num_peaks_per_gene-1.png" style="display: block; margin: auto;" />
+<img src="fig/map-many-eqtls-rendered-eqtl_num_peaks_per_gene-1.png" alt="" style="display: block; margin: auto;" />
 
 ``` r
 rm(lod_brks, result)

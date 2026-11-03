@@ -18,6 +18,10 @@ exercises: 75
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
+``` error
+Error in `readRDS()`:
+! unknown input format
+```
 
 ### Local and Distant eQTL
 
@@ -60,6 +64,11 @@ mapping project. We will read this file in now.
 
 ``` r
 source("https://raw.githubusercontent.com/smcclatchy/eqtl-mapping/refs/heads/main/episodes/code/gg_transcriptome_map.R")
+```
+
+``` error
+Error in `library()`:
+! there is no package called 'AnnotationHub'
 ```
 
 This file loads in a function called `ggtmap`, which requires the input data
@@ -182,7 +191,10 @@ ggtmap(data = eqtl |>
                        local.radius = 4)
 ```
 
-<img src="fig/create-transcriptome-map-rendered-tmap-1.png" style="display: block; margin: auto;" />
+``` error
+Error in `ggtmap()`:
+! could not find function "ggtmap"
+```
 
 The plot above is called a *transcriptome map* because it shows the positions of 
 the genes (or transcripts) and their corresponding QTL. The QTL position is 
@@ -234,7 +246,10 @@ the genome. We have provided a function called `eqtl_density_plot` to do this.
 eqtl_density_plot(eqtl, lod_thr = eqtl_thr)
 ```
 
-<img src="fig/create-transcriptome-map-rendered-eqtl_density-1.png" style="display: block; margin: auto;" />
+``` error
+Error in `eqtl_density_plot()`:
+! could not find function "eqtl_density_plot"
+```
 
 The plot above shows the mouse genome on the X-axis and the number of 
 transcripts in a 4 Mb window on the Y-axis. It is difficult to say how many 
@@ -252,7 +267,10 @@ eqtl_density_plot(filter(eqtl, local == FALSE),
   labs(title = "Distant eQTL Density")
 ```
 
-<img src="fig/create-transcriptome-map-rendered-ldistant_eqtl_density-1.png" style="display: block; margin: auto;" />
+``` error
+Error in `eqtl_density_plot()`:
+! could not find function "eqtl_density_plot"
+```
 
 
 ``` r
@@ -261,7 +279,10 @@ eqtl_density_plot(filter(eqtl, local == TRUE),
   labs(title = "Local eQTL Density")
 ```
 
-<img src="fig/create-transcriptome-map-rendered-local_eqtl_density-1.png" style="display: block; margin: auto;" />
+``` error
+Error in `eqtl_density_plot()`:
+! could not find function "eqtl_density_plot"
+```
 
 From these two plots, it appears that the eQTL hotspots on most chromosomes 
 contain distant eQTL. 
@@ -298,6 +319,11 @@ hotspots <- get_eqtl_hotspots(data           = eqtl,
                               hotspot_radius = 2)
 ```
 
+``` error
+Error in `get_eqtl_hotspots()`:
+! could not find function "get_eqtl_hotspots"
+```
+
 Let's see how many hotspots we have and how many genes are in each hotspot.
 
 
@@ -305,9 +331,9 @@ Let's see how many hotspots we have and how many genes are in each hotspot.
 sapply(hotspots, nrow)
 ```
 
-``` output
-  2   5   7  11 
-271 257 273 268 
+``` error
+Error:
+! object 'hotspots' not found
 ```
 
 In the table above, the first row of values are the chromosomes on which 
@@ -321,9 +347,9 @@ of the eQTL positions in each hotspot.
 sapply(hotspots, function(z) { mean(z$qtl_pos) })
 ```
 
-``` output
-        2         5         7        11 
-164.00699 146.30691  45.49353  70.47718 
+``` error
+Error:
+! object 'hotspots' not found
 ```
 
 Let's look at some of the genes in the chromosome 2 hotspot.
@@ -333,21 +359,9 @@ Let's look at some of the genes in the chromosome 2 hotspot.
 head(hotspots[["2"]])
 ```
 
-``` output
-             gene_id qtl_chr  qtl_pos   qtl_lod        symbol gene_chr
-1 ENSMUSG00000082514       2 162.0824 10.816809       Gm11452        2
-2 ENSMUSG00000021902       2 162.3910  7.192061          Phf7       14
-3 ENSMUSG00000021285       2 162.3945  7.576862      Ppp1r13b       12
-4 ENSMUSG00000094856       2 162.5281 51.759581       Gm21962        3
-5 ENSMUSG00000053141       2 162.6222 79.169112         Ptprt        2
-6 ENSMUSG00000087267       2 162.6222 74.916874 4933427J07Rik        2
-  gene_start  gene_end   marker.id local
-1   162.9079 162.90861 2_162082435  TRUE
-2    31.2377  31.25122 2_162391032 FALSE
-3   111.8285 111.90805 2_162394483 FALSE
-4   137.6715 137.67254 2_162528109 FALSE
-5   161.5220 162.66115 2_162622197  TRUE
-6   128.9557 128.95786 2_162622197 FALSE
+``` error
+Error:
+! object 'hotspots' not found
 ```
 
 Let's also look at the positions of the eQTL for these genes by making a
@@ -363,7 +377,10 @@ plot(table(hotspots[["2"]]$qtl_pos),
      ylab   = "Number of Genes")
 ```
 
-<img src="fig/create-transcriptome-map-rendered-hotspot_chr2_pos_hist-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'hotspots' not found
+```
 
 From the plot above, we can see that many genes have eQTL which stack up around 
 164 Mb. Are the other genes part of the same regulatory network? 
@@ -376,16 +393,32 @@ will get the genes from the expression data.
 expr_2 <- expr_rz[,hotspots[["2"]]$gene_id]
 ```
 
+``` error
+Error:
+! object 'hotspots' not found
+```
+
 Next, we will get the correlation of the genes with each other an make a 
 heatmap.
 
 
 ``` r
 cor_2 <- cor(expr_2)
+```
+
+``` error
+Error:
+! object 'expr_2' not found
+```
+
+``` r
 heatmap(cor_2, symm = TRUE, main = "Correlation of Chr2 Hotspot Genes")
 ```
 
-<img src="fig/create-transcriptome-map-rendered-chr2_hotspot_cor_heatmap-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'cor_2' not found
+```
 
 The plot above shows a clustered heatmap in which red indicates positive
 correlation and yellow indicates negative correlation.There are "dendrograms"
@@ -398,13 +431,29 @@ of clusters. We are arbitrarily selecting three clusters.
 
 ``` r
 cl     <- hclust(dist(cor_2))
+```
+
+``` error
+Error:
+! object 'cor_2' not found
+```
+
+``` r
 plot(cl, labels = FALSE, hang = -1, main = "Clustering of Chr2 Hotspot Genes")
 ```
 
-<img src="fig/create-transcriptome-map-rendered-clust_chr2_hotspot-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'cl' not found
+```
 
 ``` r
 cl_cut <- cutree(tree = cl, k = 3)
+```
+
+``` error
+Error:
+! object 'cl' not found
 ```
 
 Let's look at the number of genes and the median eQTL position of these clusters. 
@@ -412,6 +461,14 @@ Let's look at the number of genes and the median eQTL position of these clusters
 
 ``` r
 cl_spl <- split(cl_cut, cl_cut)
+```
+
+``` error
+Error:
+! object 'cl_cut' not found
+```
+
+``` r
 for(subcl in cl_spl) {
   
   cl_annot <- filter(hotspots[["2"]], gene_id %in% names(subcl))
@@ -422,14 +479,17 @@ for(subcl in cl_spl) {
 } # for(i)
 ```
 
-``` output
-[1] "72 164.0704045"
-[1] "94 164.022416"
-[1] "105 164.022416"
+``` error
+Error:
+! object 'cl_spl' not found
 ```
 
 ``` r
 rm(cl_spl)
+```
+
+``` warning
+Warning in rm(cl_spl): object 'cl_spl' not found
 ```
 
 Next, let's make the heatmap again and place the cluster colors on the axes.
@@ -437,10 +497,21 @@ Next, let's make the heatmap again and place the cluster colors on the axes.
 
 ``` r
 cols <- c('black', 'red', 'blue', 'orange')[cl_cut]
+```
+
+``` error
+Error:
+! object 'cl_cut' not found
+```
+
+``` r
 heatmap(cor_2, symm = TRUE, RowSideColors = cols, ColSideColors = cols)
 ```
 
-<img src="fig/create-transcriptome-map-rendered-unnamed-chunk-2-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'cor_2' not found
+```
 
 In this case, we will filter the chromosome 2 hotspot to only include the genes 
 with an eQTL between 163.5 and 164.5 Mb.
@@ -451,6 +522,11 @@ hot_2 <- hotspots[["2"]] |>
            filter(abs(qtl_pos - 164) < 0.5)
 ```
 
+``` error
+Error:
+! object 'hotspots' not found
+```
+
 How many genes are there in the chromosome 2 hotspot now?
 
 
@@ -458,8 +534,9 @@ How many genes are there in the chromosome 2 hotspot now?
 nrow(hot_2)
 ```
 
-``` output
-[1] 149
+``` error
+Error:
+! object 'hot_2' not found
 ```
 
 ### Principal Component of eQTL Hotspot Genes
@@ -472,8 +549,29 @@ as a phenotype to map the hotspot.
 
 ``` r
 expr_2 <- expr_rz[,hot_2$gene_id]
+```
+
+``` error
+Error:
+! object 'hot_2' not found
+```
+
+``` r
 pca_2  <- princomp(expr_2)
+```
+
+``` error
+Error:
+! object 'expr_2' not found
+```
+
+``` r
 pc1_2  <- pca_2$scores[,1,drop = FALSE]
+```
+
+``` error
+Error:
+! object 'pca_2' not found
 ```
 
 We can then map PC1 as a phenotype and we should have a large QTL peak in the 
@@ -485,11 +583,21 @@ pc1_lod <- scan1(genoprobs = probs,
                  pheno     = pc1_2,
                  kinship   = K,
                  addcovar  = addcovar)
+```
 
+``` error
+Error:
+! object 'probs' not found
+```
+
+``` r
 plot_scan1(pc1_lod, map, main = "PC1 of Chr 2 Hotspot")
 ```
 
-<img src="fig/create-transcriptome-map-rendered-map_pc1_2-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'pc1_lod' not found
+```
 
 We can also look at the founder allele effects at the peak. We will use a 
 function in `gg_transcriptome_map.R` called `plot_fit1()`.
@@ -497,15 +605,38 @@ function in `gg_transcriptome_map.R` called `plot_fit1()`.
 
 ``` r
 peaks <- find_peaks(pc1_lod, map, threshold = 20)
+```
+
+``` error
+Error:
+! object 'pc1_lod' not found
+```
+
+``` r
 pr    <- pull_genoprobpos(genoprobs = probs, 
                           map       = map, 
                           chr       = peaks$chr[1], 
                           pos       = peaks$pos[1])
+```
+
+``` error
+Error:
+! object 'probs' not found
+```
+
+``` r
 mod   <- fit1(genoprobs = pr,
               pheno     = pc1_2, 
               kinship   = K[[peaks$chr[1]]], 
               addcovar  = addcovar)
+```
 
+``` error
+Error:
+! object 'pc1_2' not found
+```
+
+``` r
 plot_fit1(mod) +
   labs(title = "Chr 2 Hotspot Allele Effects",
        x     = "Founder",
@@ -513,7 +644,10 @@ plot_fit1(mod) +
   theme(text = element_text(size = 20))
 ```
 
-<img src="fig/create-transcriptome-map-rendered-pc1_2_eff-1.png" style="display: block; margin: auto;" />
+``` error
+Error in `plot_fit1()`:
+! could not find function "plot_fit1"
+```
 
 From the plot above, we can see that NZO and WSB have allele effects which are
 different from the other strains. The direction of the allele effects is

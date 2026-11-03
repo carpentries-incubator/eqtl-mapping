@@ -19,6 +19,20 @@ exercises: 60
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
+``` error
+Error in `library()`:
+! there is no package called 'DESeq2'
+```
+
+``` error
+Error in `library()`:
+! there is no package called 'sva'
+```
+
+``` error
+Error in `readRDS()`:
+! unknown input format
+```
 
 
 ## Expression Data
@@ -57,7 +71,7 @@ hist(libsize,
      xlab   = "Total Counts (Millions)")
 ```
 
-<img src="fig/map-one-eqtl-rendered-hist_total_counts-1.png" style="display: block; margin: auto;" />
+<img src="fig/map-one-eqtl-rendered-hist_total_counts-1.png" alt="" style="display: block; margin: auto;" />
 
 As you can see, total counts range from 15 to 50 million reads. The distribution
 of counts seems to be bimodal as well, which is troubling. This may be due to 
@@ -97,7 +111,7 @@ boxplot(libsize ~ expr_covar$DOwave,
         ylab = "Batch")
 ```
 
-<img src="fig/map-one-eqtl-rendered-lib_size_batch-1.png" style="display: block; margin: auto;" />
+<img src="fig/map-one-eqtl-rendered-lib_size_batch-1.png" alt="" style="display: block; margin: auto;" />
 
 There is definitely a difference in library size by batch.
 
@@ -122,7 +136,7 @@ legend("topleft", pch = 16, cex = 1.5, legend = levels(expr_covar$DOwave),
        col = 1:4)
 ```
 
-<img src="fig/map-one-eqtl-rendered-plot_raw_pca-1.png" style="display: block; margin: auto;" />
+<img src="fig/map-one-eqtl-rendered-plot_raw_pca-1.png" alt="" style="display: block; margin: auto;" />
 
 From the plot above, we can see that the first three batches cluster together
 and the fourth batch is quite different.
@@ -152,14 +166,9 @@ expr_cbt <- ComBat_seq(counts    = t(raw),
                        covar_mod = covar_mod)
 ```
 
-``` output
-Found 4 batches
-Using null model in ComBat-seq.
-Adjusting for 1 covariate(s) or covariate level(s)
-Estimating dispersions
-Fitting the GLM model
-Shrinkage off - using GLM estimates for parameters
-Adjusting the data
+``` error
+Error in `ComBat_seq()`:
+! could not find function "ComBat_seq"
 ```
 
 `expr_cbt` now contains batch-adjusted counts. Let's plot the first two PCs
@@ -168,6 +177,14 @@ of the batch-adjusted data.
 
 ``` r
 counts  <- log1p(expr_cbt)
+```
+
+``` error
+Error:
+! object 'expr_cbt' not found
+```
+
+``` r
 counts  <- scale(counts)
 pca_cbt <- princomp(counts)
 ```
@@ -181,7 +198,7 @@ legend("topleft", pch = 16, cex = 1.5, legend = levels(expr_covar$DOwave),
        col = 1:4)
 ```
 
-<img src="fig/map-one-eqtl-rendered-plot_combat_pca-1.png" style="display: block; margin: auto;" />
+<img src="fig/map-one-eqtl-rendered-plot_combat_pca-1.png" alt="" style="display: block; margin: auto;" />
 
 This looks much better because the four batches now largely overlap. We will 
 move forward with the Combat-adjusted counts.
@@ -191,6 +208,14 @@ Note that the differences in library size have not changed greatly.
 
 ``` r
 libsize2 <- colSums(expr_cbt) * 1e-6
+```
+
+``` error
+Error:
+! object 'expr_cbt' not found
+```
+
+``` r
 boxplot(libsize2 ~ expr_covar$DOwave,
         las = 1,
         main = "Library Size by Batch after ComBat-Seq",
@@ -198,7 +223,10 @@ boxplot(libsize2 ~ expr_covar$DOwave,
         ylab = "Batch")
 ```
 
-<img src="fig/map-one-eqtl-rendered-lib_size_batch_cbt-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'libsize2' not found
+```
 
 ### Normalizing Gene Expression
 
@@ -233,8 +261,9 @@ dds  = DESeqDataSetFromMatrix(countData = round(expr_cbt),
                               design    = ~ 1)
 ```
 
-``` output
-converting counts to integer mode
+``` error
+Error in `DESeqDataSetFromMatrix()`:
+! could not find function "DESeqDataSetFromMatrix"
 ```
 
 The object `dds` contains the counts for all mice that have expression data. 
@@ -245,24 +274,18 @@ Genes are in rows and samples are in columns.
 dds
 ```
 
-``` output
-class: DESeqDataSet 
-dim: 21771 378 
-metadata(1): version
-assays(1): counts
-rownames(21771): ENSMUSG00000000001 ENSMUSG00000000028 ...
-  ENSMUSG00000099322 ENSMUSG00000099329
-rowData names(0):
-colnames(378): DO021 DO022 ... DO417 DO420
-colData names(4): mouse sex DOwave diet_days
+``` error
+Error:
+! object 'dds' not found
 ```
 
 ``` r
 dim(dds)
 ```
 
-``` output
-[1] 21771   378
+``` error
+Error:
+! object 'dds' not found
 ```
 
 This is a complex data object. Let's look at the counts for the first gene in 
@@ -273,9 +296,9 @@ the first 5 samples.
 dds@assays@data$counts[1, 1:5]
 ```
 
-``` output
-DO021 DO022 DO023 DO024 DO025 
- 9012 10608 11309 11205 10018 
+``` error
+Error:
+! object 'dds' not found
 ```
 
 Now look at the counts for the first five genes in sample 1.
@@ -285,11 +308,9 @@ Now look at the counts for the first five genes in sample 1.
 dds@assays@data$counts[1:5, 1]
 ```
 
-``` output
-ENSMUSG00000000001 ENSMUSG00000000028 ENSMUSG00000000037 ENSMUSG00000000049 
-              9012                 96                 24                 11 
-ENSMUSG00000000056 
-               136 
+``` error
+Error:
+! object 'dds' not found
 ```
 
 Next, we will run DESeq2 and let it adjust the expression data for differing
@@ -300,42 +321,9 @@ library sizes.
 dds  = DESeq(dds)
 ```
 
-``` output
-estimating size factors
-```
-
-``` output
-estimating dispersions
-```
-
-``` output
-gene-wise dispersion estimates
-```
-
-``` output
-mean-dispersion relationship
-```
-
-``` output
-final dispersion estimates
-```
-
-``` output
-fitting model and testing
-```
-
-``` output
--- replacing outliers and refitting for 137 genes
--- DESeq argument 'minReplicatesForReplace' = 7 
--- original counts are preserved in counts(dds)
-```
-
-``` output
-estimating dispersions
-```
-
-``` output
-fitting model and testing
+``` error
+Error in `DESeq()`:
+! could not find function "DESeq"
 ```
 
 Once this is done, we will get the expression data after it has been transformed
@@ -367,7 +355,10 @@ tibble(mean = rowMeans(expr_cbt),
     theme(text = element_text(size = 20))
 ```
 
-<img src="fig/map-one-eqtl-rendered-show_expr_mean_var-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'expr_cbt' not found
+```
 
 The plot above shows the mean expression value for each gene versus the standard
 deviation of each gene. Both axes are log-transformed. As you can see, there is 
@@ -380,7 +371,20 @@ the expression values.
 
 ``` r
 expr = assays(vst(dds))[[1]]
+```
+
+``` error
+Error in `assays()`:
+! could not find function "assays"
+```
+
+``` r
 expr = t(expr)
+```
+
+``` error
+Error in `t.default()`:
+! argument is not a matrix
 ```
 
 Let's look at the mean versus the standard deviation of each gene after 
@@ -399,7 +403,10 @@ tibble(mean = colMeans(expr),
     theme(text = element_text(size = 20))
 ```
 
-<img src="fig/map-one-eqtl-rendered-mean_sd_after_vst-1.png" style="display: block; margin: auto;" />
+``` error
+Error in `colMeans()`:
+! 'x' must be an array of at least two dimensions
+```
 
 The standard deviation is now largely unrelated to the mean. At lower expression
 levels, the standard deviation is somewhat related to the mean.
@@ -414,7 +421,10 @@ hist(rowSums(expr) * 1e-6,
       xlab   = "Total Counts (Millions)")
 ```
 
-<img src="fig/map-one-eqtl-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+``` error
+Error in `rowSums()`:
+! 'x' must be an array of at least two dimensions
+```
 
 Note that we no longer see a bimodal distribution, which indicates that the 
 batch effects have largely been adjusted.
@@ -439,6 +449,11 @@ genes using an inverse-normal or rank-Z transformation.
 source("https://raw.githubusercontent.com/smcclatchy/eqtl-mapping/refs/heads/main/episodes/code/rankz.R")
 
 expr_rz = apply(expr, 2, rankZ)
+```
+
+``` error
+Error in `apply()`:
+! dim(X) must have a positive length
 ```
 
 Boxplots of raw counts for six example genes are shown at left below. Notice 
@@ -472,7 +487,14 @@ norm = expr |>
                       names_to  = 'gene',
                       values_to = 'value') |> 
          mutate(type = 'normalized')
+```
 
+``` error
+Error in `as.data.frame.default()`:
+! cannot coerce class '"function"' to a data.frame
+```
+
+``` r
 bind_rows(tmp, norm) |>
   mutate(type = factor(type, levels = c('raw', 'normalized'))) |> 
   ggplot(aes(gene, value)) +
@@ -483,10 +505,17 @@ bind_rows(tmp, norm) |>
           axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 1))
 ```
 
-<img src="fig/map-one-eqtl-rendered-view_example_boxplots-1.png" style="display: block; margin: auto;" />
+``` error
+Error in `bind_rows()`:
+! Argument 2 must be a data frame or a named atomic vector.
+```
 
 ``` r
 rm(tmp, norm)
+```
+
+``` warning
+Warning in rm(tmp, norm): object 'norm' not found
 ```
 
 In the rankZ-transformed data, every gene has the same distribution.
@@ -513,7 +542,10 @@ expr_rz |>
           axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 1))
 ```
 
-<img src="fig/map-one-eqtl-rendered-rankz_expr-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'expr_rz' not found
+```
 
 Let's save the rankZ-transformed expression data so that we will have it when
 we need it again.
@@ -523,11 +555,24 @@ we need it again.
 saveRDS(expr_rz, file = "data/attie_do_expr_rz.rds")
 ```
 
+``` error
+Error:
+! object 'expr_rz' not found
+```
+
 Before moving on, let's remove data objects that we won't be using again.
 
 
 ``` r
 rm(dds, raw, expr)
+```
+
+``` warning
+Warning in rm(dds, raw, expr): object 'dds' not found
+```
+
+``` warning
+Warning in rm(dds, raw, expr): object 'expr' not found
 ```
 
 
@@ -651,6 +696,11 @@ too large (1.7 GB). We load the probs from Box above . -->
 probs <- readRDS("data/attie_DO500_genoprobs_v5.rds")
 ```
 
+``` error
+Error in `readRDS()`:
+! unknown input format
+```
+
 At this point, you should have several data objects in your environment. Look at
 the Environment tab to see what data objects are in your environment. It should
 look like the figure below.
@@ -684,8 +734,9 @@ Next, we look at the dimensions of `probs` for chromosome 1:
 dim(probs[[1]])
 ```
 
-``` output
-[1]  500    8 4711
+``` error
+Error:
+! object 'probs' not found
 ```
 
 Each list element of the genoprobs has 500 samples, eight founders, and a 
@@ -699,7 +750,10 @@ chromosome.
 plot_genoprob(probs, map, ind = 1, chr = 1)
 ```
 
-<img src="fig/map-one-eqtl-rendered-geno_plot-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'probs' not found
+```
 
 In the plot above, the founder contributions, which range between 0 and 1, are 
 colored from white (= 0) to black (= 1.0). A value of ~0.5 is grey. The markers 
@@ -759,7 +813,7 @@ n_samples <- 50
 heatmap(K[[1]][1:n_samples, 1:n_samples], main = "Kinship Between Mice")
 ```
 
-<img src="fig/map-one-eqtl-rendered-kinship_probs-1.png" style="display: block; margin: auto;" />
+<img src="fig/map-one-eqtl-rendered-kinship_probs-1.png" alt="" style="display: block; margin: auto;" />
 
 The figure above shows kinship between all pairs of samples. Light yellow 
 indicates low kinship and dark red indicates higher kinship. Orange values 
@@ -855,6 +909,11 @@ ins_lod <- scan1(genoprobs = probs,
                  addcovar  = addcovar)
 ```
 
+``` error
+Error:
+! object 'probs' not found
+```
+
 After the genome scan, `ins_lod` contains the LOD scores for both the 
 untransformed and log-transformed insulin values. 
 
@@ -863,14 +922,9 @@ untransformed and log-transformed insulin values.
 head(ins_lod)
 ```
 
-``` output
-          Ins_tAUC Ins_tAUC_log
-1_3000000 5.174362     4.415858
-1_3041392 5.174948     4.416144
-1_3346528 5.113387     4.401578
-1_3651663 4.879878     4.229782
-1_3657931 4.928267     4.271351
-1_3664199 4.977715     4.311565
+``` error
+Error:
+! object 'ins_lod' not found
 ```
 
 Let's plot both LOD curves.
@@ -889,19 +943,38 @@ plot_scan1(x         = ins_lod,
            map       = map,
            lodcolumn = "Ins_tAUC_log",
            main      = "insulin AUC")
+```
+
+``` error
+Error:
+! object 'ins_lod' not found
+```
+
+``` r
 plot_scan1(x         = ins_lod, 
            map       = map,
            lodcolumn = "Ins_tAUC",
            col       = rgb(0.8, 0, 0, 0.5),
            lty       = "dashed",
            add       = TRUE)
+```
+
+``` error
+Error:
+! object 'ins_lod' not found
+```
+
+``` r
 legend("topleft", 
        legend = c("log-transformed", "untransformed"), 
        col    = c("black",           "red3"), 
        lwd    = 2)
 ```
 
-<img src="fig/map-one-eqtl-rendered-plot_ins_tauc-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! plot.new has not been called yet
+```
 
 :::::::::::::::::::::::::::::::::::::::::::::::: challenge
 
@@ -926,6 +999,11 @@ that we will use later.
 
 ``` r
 saveRDS(ins_lod[, 2, drop = FALSE], file = "data/ns_tauc_lod.rds")
+```
+
+``` error
+Error:
+! object 'ins_lod' not found
 ```
 
 
@@ -956,6 +1034,11 @@ expression values to reduce our typing.
 hnf1b = expr_rz[, ensid, drop = FALSE]
 ```
 
+``` error
+Error:
+! object 'expr_rz' not found
+```
+
 :::::::::::::::::::::::::::::::::::::::::::::::::::: callout
 
 Remember to use the `drop = FALSE` argument so that R will not convert the
@@ -969,6 +1052,11 @@ hnf1b_lod = scan1(genoprobs = probs,
                   pheno     = hnf1b,
                   kinship   = K,
                   addcovar  = addcovar)
+```
+
+``` error
+Error:
+! object 'probs' not found
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::: challenge
@@ -987,7 +1075,10 @@ plot_scan1(x    = hnf1b_lod,
            main = "Hnf1b")
 ```
 
-<img src="fig/map-one-eqtl-rendered-challenge2-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'hnf1b_lod' not found
+```
 
 ::::::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -1111,22 +1202,29 @@ peaks_ins <- find_peaks(scan1_output = ins_lod,
                         map          = map, 
                         threshold    = thr_ins[2], 
                         prob         = 0.95)
-peaks_ins |> 
+```
+
+``` error
+Error:
+! object 'ins_lod' not found
+```
+
+
+
+``` r
+peaks_ins |>
   dplyr::select(-lodindex) |>
   arrange(chr, pos) |>
   kable(caption = "insulin AUC QTL Peaks")
 ```
 
-
-
-Table: insulin AUC QTL Peaks
-
-|lodcolumn    |chr |      pos|      lod|    ci_lo|    ci_hi|
-|:------------|:---|--------:|--------:|--------:|--------:|
-|Ins_tAUC_log |11  | 83.59467| 11.07456| 83.58167| 84.95444|
+``` error
+Error:
+! object 'peaks_ins' not found
+```
 
 We can see that we have a peak for insulin AUC on chromosome 
-11 at 83.594665 Mb.
+`# r peaks_ins$chr[1]` at `# r peaks_ins$pos[1]` Mb.
 
 :::::::::::::::::::::::::::::::::::::::::::::: challenge
 
@@ -1144,20 +1242,24 @@ hnf1b_peaks <- find_peaks(scan1_output = hnf1b_lod,
                           map          = map,
                           threshold    = thr_hnf1b[2],
                           prob         = 0.95)
+```
 
-hnf1b_peaks |> 
+``` error
+Error:
+! object 'hnf1b_lod' not found
+```
+
+``` r
+hnf1b_peaks |>
   dplyr::select(-lodindex) |>
   arrange(chr, pos) |>
   kable(caption = "Hnf1b QTL Peaks")
 ```
 
-
-
-Table: Hnf1b QTL Peaks
-
-|lodcolumn          |chr |      pos|      lod|    ci_lo|    ci_hi|
-|:------------------|:---|--------:|--------:|--------:|--------:|
-|ENSMUSG00000020679 |11  | 84.40138| 35.70779| 83.59197| 84.40138|
+``` error
+Error:
+! object 'hnf1b_peaks' not found
+```
 
 
 :::::::::::::::::::::::::::::::::::::
@@ -1186,7 +1288,7 @@ ENSMUSG00000020679 83.87799       11_84097611 protein_coding midnightblue
 ENSMUSG00000020679    <NA>
 ```
 
-The support interval ranges from 83.591972 to 84.401384
+The support interval ranges from `#r hnf1b_peaks$ci_lo` to `# r hnf1b_peaks$ci_hi`
 Mb. Hnf1b is located on chromosome 11 at 83.850063 Mb,
 which is within the support interval.
 
@@ -1240,7 +1342,10 @@ plot_coefCC(x      = ins_blup,
             main   = "insulin AUC")
 ```
 
-<img src="fig/map-one-eqtl-rendered-plot_ins_blup-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'ins_lod' not found
+```
 
 Next we will estimate the founder allele effects for Hnf1b.
 
@@ -1281,7 +1386,10 @@ plot_coefCC(x      = hnf1b_blup,
             main   = "Hnf1b")
 ```
 
-<img src="fig/map-one-eqtl-rendered-plot_hnf1b_blup-1.png" style="display: block; margin: auto;" />
+``` error
+Error:
+! object 'hnf1b_lod' not found
+```
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
