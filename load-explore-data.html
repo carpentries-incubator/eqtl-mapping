@@ -404,19 +404,13 @@ mapping.</li>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">DESeq2</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in `library()`:
-! there is no package called 'DESeq2'</code></pre>
-</div>
 <section><h2 class="section-heading" id="physiological-phenotypes">Physiological Phenotypes<a class="anchor" aria-label="anchor" href="#physiological-phenotypes"></a></h2>
 <hr class="half-width"><p>You should have downloaded data files already when following the <a href="https://smcclatchy.github.io/eqtl-mapping/index.html" class="external-link">setup
 instructions</a>. The complete data used in these analyses are available
 from <a href="https://doi.org/10.5061/dryad.pj105" class="external-link">Data Dryad</a>. The
 files we will use are in a simpler format than those on Data Dryad.</p>
 <p>Load in the physiological phenotypes.</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -436,7 +430,7 @@ contains information on each variable in <code>pheno</code>, including
 <code>name</code>, <code>short name</code>,
 <code>pheno_type</code>,<br><code>formula</code> (if used) and <code>description</code>. You can
 view a table of the data dictionary.</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -574,7 +568,7 @@ make your data more normally distributed. Here, we will log transform
 the data.</p>
 <p>Let’s make a variable for insulin AUC so that we don’t have to type
 as much.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -582,7 +576,7 @@ as much.</p>
 </div>
 <p>Next, let’s look at the distribution of insulin AUC using a
 histogram.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -596,14 +590,14 @@ this type of distribution is often log normal.</p>
 effort to make the distribution more normal. By default the
 <code>log()</code> function calculates the natural log (base
 <em>e</em>).</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ins_tauc</span><span class="op">$</span><span class="va">Ins_tAUC_log</span> <span class="op">&lt;-</span> <span class="fu">log</span><span class="op">(</span><span class="va">ins_tauc</span><span class="op">$</span><span class="va">Ins_tAUC</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Let’s make a histogram of the log-transformed data.</p>
-<div class="codewrapper sourceCode" id="cb8">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -629,7 +623,7 @@ We have told <code>geom_beeswarm()</code> to plot the points with some
 transparency using the argument <code>alpha = 0.2</code>. The
 <code>alpha</code> argument ranges between 0 (completely transparent) to
 1 (completely opaque). A value of 0.1 means mostly transparent.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -742,7 +736,7 @@ distribution and must be transformed before analysis. This is why we
 log-transformed the data in the plots above.</p>
 <p>While we can “eyeball” the distributions in the boxplot, it would be
 better to use a <em>quantile-quantile</em> plot.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -771,7 +765,7 @@ normally distributed, most of the data points would fall directly on the
 straight line.</p>
 <p>Next, we will log-transform the data and then create a
 quantile-quantile plot.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -843,7 +837,7 @@ may be real, but there may also have been mishap in the assay.</p>
 for data points that are more than four standard deviations from the
 mean.</p>
 <p>To do this, we will log transform and standardize insulin AUC.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -867,7 +861,7 @@ limits.</p>
 </div>
 </section><section><h2 class="section-heading" id="gene-expression-data">Gene Expression Data<a class="anchor" aria-label="anchor" href="#gene-expression-data"></a></h2>
 <hr class="half-width"><p>Let’s read in the gene expression data.</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -903,7 +897,7 @@ there?</h3>
 <div class="accordion-body">
 <p>Use the <code>dim</code> command or the Environment tab to determine
 the number of samples and genes in <code>raw</code>.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -925,7 +919,7 @@ below may help you to visualize the relationship between the expression,
 annotation, and covariates.</p>
 <figure><img src="fig/expr_sample_annot.png" alt="Figure showing relationship between samples, expression, and transcripts." class="figure mx-auto d-block"><div class="figcaption">Data Diagram</div>
 </figure><p>Let’s look at the rows in the gene annotation object.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -959,7 +953,7 @@ ENSMUSG00000000058    &lt;NA&gt;</code></pre>
 <p>There are many columns in the gene annotation file, including the
 Ensembl ID, gene symbol, chromosome, start and end of the gene.</p>
 <p>Next, let’s look at the sample covariates.</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -995,7 +989,7 @@ counts are not normally distributed.</p>
 genes are not normally distributed. They are also not on the same scale.
 The y-axis values for each subplot range to 20,000 counts in the first
 subplot, 250 in the second, 90 in the third, and so on.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
