@@ -873,14 +873,14 @@ peaks_ins <- find_peaks(scan1_output = ins_lod,
 
 
 ```{r ins_peaks_lod}
-peaks_ins |> 
+peaks_ins |>
   dplyr::select(-lodindex) |>
   arrange(chr, pos) |>
   kable(caption = "insulin AUC QTL Peaks")
 ```
 
 We can see that we have a peak for insulin AUC on chromosome 
-`r peaks_ins$chr[1]` at `r peaks_ins$pos[1]` Mb.
+`# r peaks_ins$chr[1]` at `# r peaks_ins$pos[1]` Mb.
 
 :::::::::::::::::::::::::::::::::::::::::::::: challenge
 
