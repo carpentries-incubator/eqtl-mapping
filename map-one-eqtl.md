@@ -20,16 +20,6 @@ exercises: 60
 
 
 ``` error
-Error in `library()`:
-! there is no package called 'DESeq2'
-```
-
-``` error
-Error in `library()`:
-! there is no package called 'sva'
-```
-
-``` error
 Error in `readRDS()`:
 ! unknown input format
 ```
@@ -166,9 +156,14 @@ expr_cbt <- ComBat_seq(counts    = t(raw),
                        covar_mod = covar_mod)
 ```
 
-``` error
-Error in `ComBat_seq()`:
-! could not find function "ComBat_seq"
+``` output
+Found 4 batches
+Using null model in ComBat-seq.
+Adjusting for 1 covariate(s) or covariate level(s)
+Estimating dispersions
+Fitting the GLM model
+Shrinkage off - using GLM estimates for parameters
+Adjusting the data
 ```
 
 `expr_cbt` now contains batch-adjusted counts. Let's plot the first two PCs
@@ -177,14 +172,6 @@ of the batch-adjusted data.
 
 ``` r
 counts  <- log1p(expr_cbt)
-```
-
-``` error
-Error:
-! object 'expr_cbt' not found
-```
-
-``` r
 counts  <- scale(counts)
 pca_cbt <- princomp(counts)
 ```
@@ -208,14 +195,6 @@ Note that the differences in library size have not changed greatly.
 
 ``` r
 libsize2 <- colSums(expr_cbt) * 1e-6
-```
-
-``` error
-Error:
-! object 'expr_cbt' not found
-```
-
-``` r
 boxplot(libsize2 ~ expr_covar$DOwave,
         las = 1,
         main = "Library Size by Batch after ComBat-Seq",
@@ -223,10 +202,7 @@ boxplot(libsize2 ~ expr_covar$DOwave,
         ylab = "Batch")
 ```
 
-``` error
-Error:
-! object 'libsize2' not found
-```
+<img src="fig/map-one-eqtl-rendered-lib_size_batch_cbt-1.png" alt="" style="display: block; margin: auto;" />
 
 ### Normalizing Gene Expression
 
@@ -261,9 +237,8 @@ dds  = DESeqDataSetFromMatrix(countData = round(expr_cbt),
                               design    = ~ 1)
 ```
 
-``` error
-Error in `DESeqDataSetFromMatrix()`:
-! could not find function "DESeqDataSetFromMatrix"
+``` output
+converting counts to integer mode
 ```
 
 The object `dds` contains the counts for all mice that have expression data. 
@@ -274,18 +249,24 @@ Genes are in rows and samples are in columns.
 dds
 ```
 
-``` error
-Error:
-! object 'dds' not found
+``` output
+class: DESeqDataSet 
+dim: 21771 378 
+metadata(1): version
+assays(1): counts
+rownames(21771): ENSMUSG00000000001 ENSMUSG00000000028 ...
+  ENSMUSG00000099322 ENSMUSG00000099329
+rowData names(0):
+colnames(378): DO021 DO022 ... DO417 DO420
+colData names(4): mouse sex DOwave diet_days
 ```
 
 ``` r
 dim(dds)
 ```
 
-``` error
-Error:
-! object 'dds' not found
+``` output
+[1] 21771   378
 ```
 
 This is a complex data object. Let's look at the counts for the first gene in 
@@ -296,9 +277,9 @@ the first 5 samples.
 dds@assays@data$counts[1, 1:5]
 ```
 
-``` error
-Error:
-! object 'dds' not found
+``` output
+DO021 DO022 DO023 DO024 DO025 
+ 9012 10608 11309 11205 10018 
 ```
 
 Now look at the counts for the first five genes in sample 1.
@@ -308,9 +289,11 @@ Now look at the counts for the first five genes in sample 1.
 dds@assays@data$counts[1:5, 1]
 ```
 
-``` error
-Error:
-! object 'dds' not found
+``` output
+ENSMUSG00000000001 ENSMUSG00000000028 ENSMUSG00000000037 ENSMUSG00000000049 
+              9012                 96                 24                 11 
+ENSMUSG00000000056 
+               136 
 ```
 
 Next, we will run DESeq2 and let it adjust the expression data for differing
@@ -321,9 +304,42 @@ library sizes.
 dds  = DESeq(dds)
 ```
 
-``` error
-Error in `DESeq()`:
-! could not find function "DESeq"
+``` output
+estimating size factors
+```
+
+``` output
+estimating dispersions
+```
+
+``` output
+gene-wise dispersion estimates
+```
+
+``` output
+mean-dispersion relationship
+```
+
+``` output
+final dispersion estimates
+```
+
+``` output
+fitting model and testing
+```
+
+``` output
+-- replacing outliers and refitting for 137 genes
+-- DESeq argument 'minReplicatesForReplace' = 7 
+-- original counts are preserved in counts(dds)
+```
+
+``` output
+estimating dispersions
+```
+
+``` output
+fitting model and testing
 ```
 
 Once this is done, we will get the expression data after it has been transformed
@@ -355,10 +371,7 @@ tibble(mean = rowMeans(expr_cbt),
     theme(text = element_text(size = 20))
 ```
 
-``` error
-Error:
-! object 'expr_cbt' not found
-```
+<img src="fig/map-one-eqtl-rendered-show_expr_mean_var-1.png" alt="" style="display: block; margin: auto;" />
 
 The plot above shows the mean expression value for each gene versus the standard
 deviation of each gene. Both axes are log-transformed. As you can see, there is 
@@ -371,20 +384,7 @@ the expression values.
 
 ``` r
 expr = assays(vst(dds))[[1]]
-```
-
-``` error
-Error in `assays()`:
-! could not find function "assays"
-```
-
-``` r
 expr = t(expr)
-```
-
-``` error
-Error in `t.default()`:
-! argument is not a matrix
 ```
 
 Let's look at the mean versus the standard deviation of each gene after 
@@ -403,10 +403,7 @@ tibble(mean = colMeans(expr),
     theme(text = element_text(size = 20))
 ```
 
-``` error
-Error in `colMeans()`:
-! 'x' must be an array of at least two dimensions
-```
+<img src="fig/map-one-eqtl-rendered-mean_sd_after_vst-1.png" alt="" style="display: block; margin: auto;" />
 
 The standard deviation is now largely unrelated to the mean. At lower expression
 levels, the standard deviation is somewhat related to the mean.
@@ -421,10 +418,7 @@ hist(rowSums(expr) * 1e-6,
       xlab   = "Total Counts (Millions)")
 ```
 
-``` error
-Error in `rowSums()`:
-! 'x' must be an array of at least two dimensions
-```
+<img src="fig/map-one-eqtl-rendered-unnamed-chunk-1-1.png" alt="" style="display: block; margin: auto;" />
 
 Note that we no longer see a bimodal distribution, which indicates that the 
 batch effects have largely been adjusted.
@@ -449,11 +443,6 @@ genes using an inverse-normal or rank-Z transformation.
 source("https://raw.githubusercontent.com/smcclatchy/eqtl-mapping/refs/heads/main/episodes/code/rankz.R")
 
 expr_rz = apply(expr, 2, rankZ)
-```
-
-``` error
-Error in `apply()`:
-! dim(X) must have a positive length
 ```
 
 Boxplots of raw counts for six example genes are shown at left below. Notice 
@@ -487,14 +476,7 @@ norm = expr |>
                       names_to  = 'gene',
                       values_to = 'value') |> 
          mutate(type = 'normalized')
-```
 
-``` error
-Error in `as.data.frame.default()`:
-! cannot coerce class '"function"' to a data.frame
-```
-
-``` r
 bind_rows(tmp, norm) |>
   mutate(type = factor(type, levels = c('raw', 'normalized'))) |> 
   ggplot(aes(gene, value)) +
@@ -505,17 +487,10 @@ bind_rows(tmp, norm) |>
           axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 1))
 ```
 
-``` error
-Error in `bind_rows()`:
-! Argument 2 must be a data frame or a named atomic vector.
-```
+<img src="fig/map-one-eqtl-rendered-view_example_boxplots-1.png" alt="" style="display: block; margin: auto;" />
 
 ``` r
 rm(tmp, norm)
-```
-
-``` warning
-Warning in rm(tmp, norm): object 'norm' not found
 ```
 
 In the rankZ-transformed data, every gene has the same distribution.
@@ -542,10 +517,7 @@ expr_rz |>
           axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 1))
 ```
 
-``` error
-Error:
-! object 'expr_rz' not found
-```
+<img src="fig/map-one-eqtl-rendered-rankz_expr-1.png" alt="" style="display: block; margin: auto;" />
 
 Let's save the rankZ-transformed expression data so that we will have it when
 we need it again.
@@ -555,24 +527,11 @@ we need it again.
 saveRDS(expr_rz, file = "data/attie_do_expr_rz.rds")
 ```
 
-``` error
-Error:
-! object 'expr_rz' not found
-```
-
 Before moving on, let's remove data objects that we won't be using again.
 
 
 ``` r
 rm(dds, raw, expr)
-```
-
-``` warning
-Warning in rm(dds, raw, expr): object 'dds' not found
-```
-
-``` warning
-Warning in rm(dds, raw, expr): object 'expr' not found
 ```
 
 
@@ -923,8 +882,8 @@ head(ins_lod)
 ```
 
 ``` error
-Error:
-! object 'ins_lod' not found
+Error in `h()`:
+! error in evaluating the argument 'x' in selecting a method for function 'head': object 'ins_lod' not found
 ```
 
 Let's plot both LOD curves.
@@ -1002,8 +961,8 @@ saveRDS(ins_lod[, 2, drop = FALSE], file = "data/ns_tauc_lod.rds")
 ```
 
 ``` error
-Error:
-! object 'ins_lod' not found
+Error in `h()`:
+! error in evaluating the argument 'object' in selecting a method for function 'saveRDS': object 'ins_lod' not found
 ```
 
 
@@ -1032,11 +991,6 @@ expression values to reduce our typing.
 
 ``` r
 hnf1b = expr_rz[, ensid, drop = FALSE]
-```
-
-``` error
-Error:
-! object 'expr_rz' not found
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::: callout
@@ -1335,11 +1289,11 @@ Next, we will plot the founder allele effects.
 
 
 ``` r
-plot_coefCC(x      = ins_blup, 
-            map    = map, 
-            legend = "bottomleft",
+plot_coefCC(x            = ins_blup, 
+            map          = map, 
+            legend       = "bottomleft",
             scan1_output = ins_lod[, 2, drop = FALSE],
-            main   = "insulin AUC")
+            main         = "insulin AUC")
 ```
 
 ``` error
@@ -1379,11 +1333,11 @@ Next, we will plot the founder allele effects.
 
 
 ``` r
-plot_coefCC(x      = hnf1b_blup, 
-            map    = map, 
-            legend = "bottomleft",
+plot_coefCC(x            = hnf1b_blup, 
+            map          = map, 
+            legend       = "bottomleft",
             scan1_output = hnf1b_lod,
-            main   = "Hnf1b")
+            main         = "Hnf1b")
 ```
 
 ``` error
