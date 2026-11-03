@@ -921,7 +921,7 @@ hnf1b_pos <- filter(annot, symbol == "Hnf1b")
 hnf1b_pos
 ```
 
-The support interval ranges from `r hnf1b_peaks$ci_lo` to `r hnf1b_peaks$ci_hi`
+The support interval ranges from `#r hnf1b_peaks$ci_lo` to `# r hnf1b_peaks$ci_hi`
 Mb. Hnf1b is located on chromosome `r hnf1b_pos$chr` at `r hnf1b_pos$start` Mb,
 which is within the support interval.
 
