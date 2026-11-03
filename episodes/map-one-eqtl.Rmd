@@ -898,7 +898,7 @@ hnf1b_peaks <- find_peaks(scan1_output = hnf1b_lod,
                           threshold    = thr_hnf1b[2],
                           prob         = 0.95)
 
-hnf1b_peaks |> 
+hnf1b_peaks |>
   dplyr::select(-lodindex) |>
   arrange(chr, pos) |>
   kable(caption = "Hnf1b QTL Peaks")
