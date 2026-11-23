@@ -25,6 +25,11 @@ library(qtl2)
 library(DESeq2)
 ```
 
+``` error
+Error in `library()`:
+! there is no package called 'DESeq2'
+```
+
 ## Physiological Phenotypes
 
 You should have downloaded data files already when following the 
